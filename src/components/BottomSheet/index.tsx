@@ -5,7 +5,7 @@ import { styles } from './styles';
 import AllCategories from './AllCategories';
 import AddNewTask from './AddNewTask';
 
-export default function BottomSheetComponent({ onClose, isOpen, backgroundStyle, fetchData, respData }: BottomSheetProps) {
+export default function BottomSheetComponent({ onClose, isOpen, backgroundStyle, respData, fetchTasksSummary }: BottomSheetProps) {
     const [chosenCategory, setChosenCategory] = useState<ChosenCategoryType>({
         id: 'EDUCATIONAL',
         label: 'Educational',
@@ -29,7 +29,7 @@ export default function BottomSheetComponent({ onClose, isOpen, backgroundStyle,
                     renderItem === 'AllCategories' ? (
                         <AllCategories backgroundStyle={backgroundStyle} onClose={onClose} setRenderItem={handleRenderItem} setChosenCategory={setChosenCategory}/>
                     ) : renderItem === 'AddNewTask' ? (
-                        <AddNewTask respData={respData} backgroundStyle={backgroundStyle} onClose={onClose} category={chosenCategory} fetchData={fetchData}/>
+                        <AddNewTask respData={respData} backgroundStyle={backgroundStyle} onClose={onClose} category={chosenCategory} fetchTasksSummary={fetchTasksSummary}/>
                     ) : null
                 }
             </Actionsheet.Content>

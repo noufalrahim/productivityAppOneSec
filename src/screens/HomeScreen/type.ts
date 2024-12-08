@@ -1,7 +1,7 @@
 export type CategoryNames = 'EDUCATIONAL' | 'HEALTH' | 'HOUSE' | 'WORK' | 'PERSONAL';
 
 export type TaskType = {
-    id: string;
+    id?: string;
     title: string;
     description: string;
     allDay: boolean;

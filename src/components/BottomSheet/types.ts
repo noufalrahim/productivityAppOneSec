@@ -9,7 +9,7 @@ export interface BottomSheetProps {
         primary: string;
         secondary: string;
     },
-    fetchData: () => void;
+    fetchTasksSummary: () => void;
     respData: TaskListType | undefined;
 }
 

@@ -12,6 +12,6 @@ export interface AddNewTaskProps {
         label: string;
     };
     onClose: () => void;
-    fetchData: () => void;
+    fetchTasksSummary: () => void;
     respData: TaskListType | undefined;
 }

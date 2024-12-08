@@ -7,11 +7,10 @@ import { Icon } from '../../../utils/ExtractIcon';
 import { TextInput } from 'react-native-paper';
 import DateCard from '../../Card/DateCard';
 import TimeCard from '../../Card/TimeCard';
+import { createTask } from '../../../database/api/CreateTask';
+import { database } from '../../../database';
 import { TimestampCreator } from '../../../utils/TimestampCreator';
-import { TaskType } from '../../../screens/HomeScreen/type';
-import { saveData } from '../../../db/api/saveData';
-
-export default function AddNewTask({ backgroundStyle, onClose, category, fetchData, respData }: AddNewTaskProps) {
+export default function AddNewTask({ backgroundStyle, onClose, category, respData, fetchTasksSummary }: AddNewTaskProps) {
     const [date, setDate] = useState(new Date());
     const [openDate, setOpenDate] = useState(false);
     const [openTime, setOpenTime] = useState(false);
@@ -21,33 +20,51 @@ export default function AddNewTask({ backgroundStyle, onClose, category, fetchDa
     const [isAllDay, setIsAllDay] = React.useState(false);
 
     const handleAddTask = async () => {
-        const timestamp = TimestampCreator(date, time);
-        console.log('log/AddNewTask/func: ', timestamp);
-
-        const newTask: TaskType = {
-            id: `${Date.now()}-${Math.random().toString(36).substring(2, 11)}`,
-            title: title,
-            description: description,
-            allDay: isAllDay,
-            dueTimeStamp: timestamp,
-            completed: false,
-            category: category.id,
-        };
-        if (respData) {
-            console.log('log/AddNewTask/func: ', respData);
-            respData.pending += 1;
-            respData.total += 1;
-            respData.tasks.push(newTask);
-            console.log('log/AddNewTask/func: ', respData);
-            // respData.push(newTask);
-            const postData = {
-                taskData: respData,
-            };
-            const response = await saveData('tasks', postData);
-            console.log('log/AddNewTask/func: Data saved successfully ', response);
-            fetchData();
-            onClose();
+        console.log('Add task');
+        // const newTask: TaskType = {
+        //     title: 'Buy health supplements',
+        //     description: 'Buy health supplements from the pharmacy',
+        //     allDay: false,
+        //     dueTimeStamp: 1733328000, // Example timestamp
+        //     completed: false,
+        //     category: 'HEALTH', // One of the categories: EDUCATIONAL, HEALTH, HOUSE, WORK, PERSONAL
+        // };
+        // postTask(newTask).then(() => {
+        //     console.log('Task and summary successfully updated');
+        //     // fetchData();
+        //     // fetchTasksSummary();
+        //     // onClose();
+        //   }).catch((error) => {
+        //     console.log('Error inserting task and updating summary: ', error);
+        // });
+        if(!title) {
+            console.log('Title is required');
+            return;
         }
+        else if(!date) {
+            console.log('Date is required');
+            return;
+        }
+        else if(!time) {
+            console.log('Time is required');
+            return;
+        }
+        else if(!category) {
+            console.log('Category is required');
+            return;
+        }
+        try {
+            const titleOfTask = title;
+            const descriptionOfTas = description;
+            const dueTimeStampOfTask = TimestampCreator(date, time);
+            const categoryOfTask = category.id;
+
+            await createTask(database, titleOfTask, descriptionOfTas, dueTimeStampOfTask, categoryOfTask);
+            console.log('Task and summary successfully updated');
+        } catch (error) {
+            console.log('Error inserting task and updating summary: ', error);
+        }
+        onClose();
     };
 
     return (

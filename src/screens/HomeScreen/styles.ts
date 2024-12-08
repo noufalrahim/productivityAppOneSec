@@ -41,6 +41,12 @@ export const styles = StyleSheet.create({
         height: 1,
         marginHorizontal: 8,
     },
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+    },
     text: {
         fontSize: 16,
     },

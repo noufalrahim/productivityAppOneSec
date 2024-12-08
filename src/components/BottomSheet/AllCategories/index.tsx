@@ -8,7 +8,6 @@ import CATEGORIES from '../../../db/category.json';
 import { CategoryNames } from '../../../screens/HomeScreen/type';
 
 export default function AllCategories({ onClose, backgroundStyle, setRenderItem, setChosenCategory }: AllCategoriesProps) {
-
     const categoriesData = CATEGORIES.categories.map(category => ({
         ...category,
         icon: category.icon as CategoryNames,

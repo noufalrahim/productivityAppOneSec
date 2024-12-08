@@ -6,10 +6,28 @@ import { ExtractTime } from '../../../utils/ExtractTime';
 import { ExtractDay } from '../../../utils/ExtractDay';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { Icon } from '../../../utils/ExtractIcon';
+import { updateTask } from '../../../database/api/UpdateTask';
+import { database } from '../../../database';
 
 export default function TaskCard({ backgroundStyle, task }: TaskCardProps) {
+    const handlePress = async (task) => {
+        console.log('log/TaskCard/func: ', task.id);
+        const updatedTask = {
+            ...task,
+            title: 'New Title',
+            description: 'This is a new description',
+        };
+
+        try {
+            await updateTask(database, task.id, updatedTask);
+            console.log('Task updated!');
+        }
+        catch (error) {
+            console.log('log/TaskCard/func: ', error);
+        }
+    };
     return (
-        <View style={[styles.container, { backgroundColor: backgroundStyle.secondary }]}>
+        <Pressable onPress={() => handlePress(task)} style={[styles.container, { backgroundColor: backgroundStyle.secondary }]}>
             <View style={styles.iconAndText}>
                 <View style={[styles.iconContainer, {
                     backgroundColor: backgroundStyle.primary,
@@ -30,6 +48,6 @@ export default function TaskCard({ backgroundStyle, task }: TaskCardProps) {
             <Pressable style={[styles.endContainer, { backgroundColor: backgroundStyle.primary }]} onPress={() => console.log('log/TaskCard/func: ', task)}>
                 <Text style={[{ color: backgroundStyle.color }]}>Done</Text>
             </Pressable>
-        </View>
+        </Pressable>
     );
 }

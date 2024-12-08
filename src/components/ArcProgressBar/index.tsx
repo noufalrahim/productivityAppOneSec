@@ -6,7 +6,6 @@ import { styles } from './styles';
 import { TaskStatisticsType } from '../../screens/HomeScreen/type';
 
 const SemicircleProgressBar = ({ progress, statistics }: { progress: number, statistics: TaskStatisticsType }) => {
-  console.log('log/ArcProgressBar/info: progress ', progress);
   return (
     <View style={styles.container}>
       <AnimatedCircularProgress
