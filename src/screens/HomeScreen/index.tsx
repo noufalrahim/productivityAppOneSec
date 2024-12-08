@@ -17,12 +17,39 @@ import { useDisclose } from 'native-base';
 import BottomSheetComponent from '../../components/BottomSheet';
 import { saveData } from '../../db/api/saveData';
 // import { isValidCategory } from '../../utils/ValidateType';
+import { NativeModules } from 'react-native';
+const { TrackedApps } = NativeModules;
 
+const apps = [
+    {
+      appName: "WhatsApp",       // Display name of the app
+      packageName: "com.whatsapp" // Android package name
+    },
+    {
+      appName: "Instagram",
+      packageName: "com.instagram.android"
+    },
+    {
+      appName: "Facebook",
+      packageName: "com.facebook.katana"
+    },
+    {
+        appName: "YouTube",
+        packageName: "com.google.android.youtube"
+    }
+  ];
 export default function HomeScreen({navigation}: {navigation: HomeScreenNavigationProp}) {
     const isDarkMode = useColorScheme() !== 'dark';
     const { isOpen, onOpen, onClose } = useDisclose();
     const [respData, setRespData] = useState<TaskListType>();
     const [taskData, setTaskData] = React.useState<TaskType[]>([]);
+    const selectedApps = React.useMemo(() => [
+        'com.whatsapp',       // WhatsApp
+        'com.instagram.android', // Instagram
+        'com.facebook.katana',   // Facebook
+        'com.google.android.gm',
+        'com.android.chrome',
+     ], []);
     const [taskSatistics, setTaskSatistics] = React.useState<TaskStatisticsType>({
         totalTasks: 0,
         completedTasks: 0,
@@ -52,6 +79,14 @@ export default function HomeScreen({navigation}: {navigation: HomeScreenNavigati
     //     };
     //     postData();
     // }, []);
+      React.useEffect(() => {
+        const updateTrackedApps = (apps) => {
+            TrackedApps.updateTrackedApps(apps);
+          };
+
+            updateTrackedApps(selectedApps);
+
+      }, [selectedApps]);
 
     React.useEffect(() => {
         const calculateProgress = () => {
