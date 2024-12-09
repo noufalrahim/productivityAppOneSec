@@ -8,6 +8,6 @@ export interface AllCategoriesProps {
         primary: string;
         secondary: string;
     },
-    setRenderItem: (item: string) => void;
+    setRenderItem: (item: 'AllCategories' | 'AddNewTask') => void;
     setChosenCategory: (category: { id: CategoryNames, label: string }) => void;
 }

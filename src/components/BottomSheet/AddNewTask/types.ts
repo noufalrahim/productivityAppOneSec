@@ -14,4 +14,5 @@ export interface AddNewTaskProps {
     onClose: () => void;
     fetchTasksSummary: () => void;
     respData: TaskListType | undefined;
+    setRenderItem: (item: 'AddNewTask' | 'AllCategories') => void;
 }

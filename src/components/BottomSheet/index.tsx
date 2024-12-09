@@ -11,9 +11,9 @@ export default function BottomSheetComponent({ onClose, isOpen, backgroundStyle,
         label: 'Educational',
     });
 
-    const [renderItem, setRenderItem] = useState('AllCategories');
+    const [renderItem, setRenderItem] = useState<'AllCategories' | 'AddNewTask'>('AllCategories');
 
-    const handleRenderItem = (item: string) => {
+    const handleRenderItem = (item: 'AddNewTask' | 'AllCategories') => {
         setRenderItem(item);
     };
 
@@ -29,7 +29,7 @@ export default function BottomSheetComponent({ onClose, isOpen, backgroundStyle,
                     renderItem === 'AllCategories' ? (
                         <AllCategories backgroundStyle={backgroundStyle} onClose={onClose} setRenderItem={handleRenderItem} setChosenCategory={setChosenCategory}/>
                     ) : renderItem === 'AddNewTask' ? (
-                        <AddNewTask respData={respData} backgroundStyle={backgroundStyle} onClose={onClose} category={chosenCategory} fetchTasksSummary={fetchTasksSummary}/>
+                        <AddNewTask respData={respData} backgroundStyle={backgroundStyle} setRenderItem={setRenderItem} onClose={onClose} category={chosenCategory} fetchTasksSummary={fetchTasksSummary}/>
                     ) : null
                 }
             </Actionsheet.Content>

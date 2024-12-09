@@ -10,7 +10,7 @@ import TimeCard from '../../Card/TimeCard';
 import { createTask } from '../../../database/api/CreateTask';
 import { database } from '../../../database';
 import { TimestampCreator } from '../../../utils/TimestampCreator';
-export default function AddNewTask({ backgroundStyle, onClose, category, respData, fetchTasksSummary }: AddNewTaskProps) {
+export default function AddNewTask({ backgroundStyle, onClose, category, respData, fetchTasksSummary, setRenderItem }: AddNewTaskProps) {
     const [date, setDate] = useState(new Date());
     const [openDate, setOpenDate] = useState(false);
     const [openTime, setOpenTime] = useState(false);
@@ -64,6 +64,7 @@ export default function AddNewTask({ backgroundStyle, onClose, category, respDat
         } catch (error) {
             console.log('Error inserting task and updating summary: ', error);
         }
+        setRenderItem('AllCategories');
         onClose();
     };
 

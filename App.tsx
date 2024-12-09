@@ -11,6 +11,7 @@ import { readTasks } from './src/database/api/ReadTasks';
 import { database } from './src/database';
 import { initializeTaskSummary } from './src/database/api/InitializeTaskSummary';
 import { deleteEverythingInDB } from './src/database/api/DeleteAll';
+import Picker from './src/components/Card/DateCard/Picker';
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() !== 'dark';
 
@@ -33,6 +34,7 @@ function App(): React.JSX.Element {
       />
       <NativeBaseProvider>
         <RootNavigator />
+        {/* <Picker /> */}
       </NativeBaseProvider>
     </PaperProvider>
   );

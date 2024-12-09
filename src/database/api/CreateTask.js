@@ -1,5 +1,3 @@
-import { fetchAllTaskSummaries } from './ReadTaskSummary';
-
 async function createTask(database, title, description, dueTimeStamp, category) {
     await database.write(async () => {
         await database.collections.get('tasks').create((task) => {
